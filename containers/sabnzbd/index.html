@@ -1,0 +1,2419 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for all Docker images maintained by hotio.">
+      
+      
+        <meta name="author" content="hotio">
+      
+      
+        <link rel="canonical" href="https://hotio.dev/containers/sabnzbd/">
+      
+      
+        <link rel="prev" href="../rflood/">
+      
+      
+        <link rel="next" href="../sonarr/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
+    
+    
+      
+        <title>hotio/sabnzbd - hotio.dev</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f2e4d321.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="theme-color" content="#3c3f44ff">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="hotio" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#starting-the-container" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="hotio.dev" class="md-header__button md-logo" aria-label="hotio.dev" data-md-component="logo">
+      
+  <img src="../../img/hotio.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hotio.dev
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              hotio/sabnzbd
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hotio" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hotio
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../base/" class="md-tabs__link">
+          
+  
+  Containers
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/torguard/" class="md-tabs__link">
+          
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scripts/sysinfo/" class="md-tabs__link">
+          
+  
+  Scripts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="hotio.dev" class="md-nav__button md-logo" aria-label="hotio.dev" data-md-component="logo">
+      
+  <img src="../../img/hotio.svg" alt="logo">
+
+    </a>
+    hotio.dev
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hotio" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hotio
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Base Images
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Base Images
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../base/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/base
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Apps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoscan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/autoscan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bazarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/bazarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caddy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/caddy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloudflareddns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/cloudflareddns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../doplarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/doplarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duplicacy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/duplicacy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jackett/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/jackett
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jellyfin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/jellyfin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jellyseerr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/jellyseerr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lidarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/lidarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mergerfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/mergerfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nzbget/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/nzbget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nzbhydra2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/nzbhydra2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overseerr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/overseerr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/plex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prowlarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/prowlarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qbitmanage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/qbitmanage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qbittorrent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/qbittorrent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../radarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/radarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/readarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requestrr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/requestrr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rflood/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/rflood
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    hotio/sabnzbd
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    hotio/sabnzbd
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      WireGuard
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sonarr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/sonarr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/stash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tautulli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/tautulli
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unpackerr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/unpackerr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../whisparr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hotio/whisparr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/torguard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TorGuard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Scripts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/sysinfo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SysInfo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/pullio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pullio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/arr-discord-notifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arr Discord Notifier
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      WireGuard
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>hotio/sabnzbd</h1>
+
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></span> <a id=github-link href="" class="header-icons" target="_blank" rel="noopener">GitHub</a><br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m10.41.24 4.711 2.774c.544.316.878.897.879 1.526v5.01a1.77 1.77 0 0 1-.88 1.53l-7.753 4.521-.002.001a1.769 1.769 0 0 1-1.774 0H5.59L.873 12.85A1.761 1.761 0 0 1 0 11.327V6.292c0-.304.078-.598.22-.855l.004-.005.01-.019c.15-.262.369-.486.64-.643L8.641.239a1.752 1.752 0 0 1 1.765 0l.002.001ZM9.397 1.534l-7.17 4.182 4.116 2.388a.27.27 0 0 0 .269 0l7.152-4.148-4.115-2.422a.252.252 0 0 0-.252 0Zm-7.768 10.02 4.1 2.393V9.474a1.807 1.807 0 0 1-.138-.072L1.5 7.029v4.298c0 .095.05.181.129.227Zm8.6.642 1.521-.887v-4.45l-1.521.882ZM7.365 9.402h.001c-.044.026-.09.049-.136.071v4.472l1.5-.875V8.61Zm5.885 1.032 1.115-.65h.002a.267.267 0 0 0 .133-.232V5.264l-1.25.725Z"/></svg></span> <a id=dockerio-link href="" class="header-icons" target="_blank" rel="noopener">docker.io</a> / 
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m10.41.24 4.711 2.774c.544.316.878.897.879 1.526v5.01a1.77 1.77 0 0 1-.88 1.53l-7.753 4.521-.002.001a1.769 1.769 0 0 1-1.774 0H5.59L.873 12.85A1.761 1.761 0 0 1 0 11.327V6.292c0-.304.078-.598.22-.855l.004-.005.01-.019c.15-.262.369-.486.64-.643L8.641.239a1.752 1.752 0 0 1 1.765 0l.002.001ZM9.397 1.534l-7.17 4.182 4.116 2.388a.27.27 0 0 0 .269 0l7.152-4.148-4.115-2.422a.252.252 0 0 0-.252 0Zm-7.768 10.02 4.1 2.393V9.474a1.807 1.807 0 0 1-.138-.072L1.5 7.029v4.298c0 .095.05.181.129.227Zm8.6.642 1.521-.887v-4.45l-1.521.882ZM7.365 9.402h.001c-.044.026-.09.049-.136.071v4.472l1.5-.875V8.61Zm5.885 1.032 1.115-.65h.002a.267.267 0 0 0 .133-.232V5.264l-1.25.725Z"/></svg></span> <a id=ghcrio-link href="" class="header-icons" target="_blank" rel="noopener">ghcr.io</a></p>
+<div id="project-links"></div>
+
+<h2 id="starting-the-container">Starting the container<a class="headerlink" href="#starting-the-container" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">compose</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>sabnzbd<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">PUID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">PGID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">UMASK</span><span class="o">=</span><span class="m">002</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">WEBUI_PORTS</span><span class="o">=</span><span class="s2">&quot;8080/tcp,8080/udp&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/&lt;host_folder_config&gt;:/config<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/&lt;host_folder_data&gt;:/data<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ghcr.io/hotio/sabnzbd
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sabnzbd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sabnzbd</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/hotio/sabnzbd</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8080:8080&quot;</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PUID=1000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PGID=1000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UMASK=002</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TZ=Etc/UTC</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WEBUI_PORTS=8080/tcp,8080/udp</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ARGS</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/&lt;host_folder_config&gt;:/config</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/&lt;host_folder_data&gt;:/data</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h2 id="tags">Tags<a class="headerlink" href="#tags" title="Permanent link">&para;</a></h2>
+<table id= "tags-table">
+  <thead>
+    <th style="white-space:nowrap;">Tags</th>
+    <th style="white-space:nowrap;">Description</th>
+    <th style="white-space:nowrap;">Last Updated</th>
+    <th style="white-space:nowrap;">Age</th>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/loadJSON.js"></script>
+
+<h2 id="wireguard">WireGuard<a class="headerlink" href="#wireguard" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This image includes VPN support. The cli/compose examples below are environment variables and settings complementary to the app image examples, this means you'll have to add/merge the stuff below with the stuff above. In case you are still in need of a VPN, consider using my affiliate link for <a href="https://hotio.dev/proton" rel="noopener" target="_blank">Proton</a>, <a href="https://hotio.dev/pia" rel="noopener" target="_blank">Private Internet Access</a> or <a href="https://hotio.dev/torguard" rel="noopener" target="_blank">TorGuard</a> (50% Off: <code>hotio.dev-50-all</code>).</p>
+</div>
+<p><img src="https://go.getproton.me/aff_i?offer_id=26&aff_id=7223" width="0" height="0" style="position:absolute;visibility:hidden;" border="0" />
+<a href="https://hotio.dev/proton" target="_blank" rel="noopener">
+  <img id="vpnbanner" src="/img/protonvpn@2x.png" alt="ProtonVPN" width="320" height="50">
+</a>
+<a href="https://hotio.dev/pia" target="_blank" rel="noopener">
+  <img id="vpnbanner" src="/img/piavpn728x90.png" alt="PiaVPN" width="404" height="50">
+</a>
+<a href="https://hotio.dev/torguard" target="_blank" rel="noopener" title="50% Off: hotio.dev-50-all">
+  <img id="vpnbanner" src="/img/torguard.jpg" alt="TorGuard" width="197" height="50">
+</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">generic</label><label for="__tabbed_2_2">proton</label><label for="__tabbed_2_3">pia</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">cli</label><label for="__tabbed_3_2">compose</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--hostname<span class="w"> </span>container-name.internal<span class="w"> </span><span class="se">\ </span><span class="c1">#(18)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_ENABLED</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(5)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_CONF</span><span class="o">=</span><span class="s2">&quot;wg0&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1"># READ THIS(8)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PROVIDER</span><span class="o">=</span><span class="s2">&quot;generic&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(4)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_NETWORK</span><span class="o">=</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(1)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_LEAK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_EXPOSE_PORTS_ON_LAN</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(2)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(6)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD_TO_PORTS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(15)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_KEEP_LOCAL_DNS</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(10)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_FIREWALL_TYPE</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(17)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_HEALTHCHECK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">PRIVOXY_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">UNBOUND_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(16)</span>
+<span class="w">    </span>--cap-add<span class="o">=</span>NET_ADMIN<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(12)</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv6.conf.all.disable_ipv6=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(3)</span>
+<span class="w">    </span>--device<span class="w"> </span>/dev/net/tun:/dev/net/tun<span class="w"> </span><span class="se">\ </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span>...
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">container-name.internal</span><span class="w"> </span><span class="c1">#(18)</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_ENABLED=true</span><span class="w"> </span><span class="c1">#(5)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_CONF=wg0</span><span class="w"> </span><span class="c1"># READ THIS(8)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PROVIDER=generic</span><span class="w"> </span><span class="c1">#(4)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_NETWORK=192.168.1.0/24</span><span class="w"> </span><span class="c1">#(1)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_LEAK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_EXPOSE_PORTS_ON_LAN</span><span class="w"> </span><span class="c1">#(2)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD=false</span><span class="w"> </span><span class="c1">#(6)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD_TO_PORTS=</span><span class="w"> </span><span class="c1">#(15)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_KEEP_LOCAL_DNS=false</span><span class="w"> </span><span class="c1">#(10)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_FIREWALL_TYPE=auto</span><span class="w"> </span><span class="c1">#(17)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_HEALTHCHECK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PRIVOXY_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNBOUND_ENABLED=false</span><span class="w"> </span><span class="c1">#(16)</span>
+<span class="w">    </span><span class="nt">cap_add</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_ADMIN</span>
+<span class="w">    </span><span class="nt">sysctls</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv4.conf.all.src_valid_mark=1</span><span class="w"> </span><span class="c1">#(12)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv6.conf.all.disable_ipv6=1</span><span class="w"> </span><span class="c1">#(3)</span>
+<span class="w">    </span><span class="nt">devices</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/net/tun:/dev/net/tun</span><span class="w"> </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">cli</label><label for="__tabbed_4_2">compose</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--hostname<span class="w"> </span>container-name.internal<span class="w"> </span><span class="se">\ </span><span class="c1">#(18)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_ENABLED</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(5)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_CONF</span><span class="o">=</span><span class="s2">&quot;wg0&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1"># READ THIS(8)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PROVIDER</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(4)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_NETWORK</span><span class="o">=</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(1)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_LEAK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_EXPOSE_PORTS_ON_LAN</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(2)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(6)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD_TO_PORTS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(15)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_KEEP_LOCAL_DNS</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(10)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_FIREWALL_TYPE</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(17)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_HEALTHCHECK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">PRIVOXY_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">UNBOUND_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(16)</span>
+<span class="w">    </span>--cap-add<span class="o">=</span>NET_ADMIN<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(12)</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv6.conf.all.disable_ipv6=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(3)</span>
+<span class="w">    </span>--device<span class="w"> </span>/dev/net/tun:/dev/net/tun<span class="w"> </span><span class="se">\ </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span>...
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">container-name.internal</span><span class="w"> </span><span class="c1">#(18)</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_ENABLED=true</span><span class="w"> </span><span class="c1">#(5)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_CONF=wg0</span><span class="w"> </span><span class="c1"># READ THIS(8)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PROVIDER=proton</span><span class="w"> </span><span class="c1">#(4)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_NETWORK=192.168.1.0/24</span><span class="w"> </span><span class="c1">#(1)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_LEAK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_EXPOSE_PORTS_ON_LAN</span><span class="w"> </span><span class="c1">#(2)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD=true</span><span class="w"> </span><span class="c1">#(6)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD_TO_PORTS=</span><span class="w"> </span><span class="c1">#(15)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_KEEP_LOCAL_DNS=false</span><span class="w"> </span><span class="c1">#(10)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_FIREWALL_TYPE=auto</span><span class="w"> </span><span class="c1">#(17)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_HEALTHCHECK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PRIVOXY_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNBOUND_ENABLED=false</span><span class="w"> </span><span class="c1">#(16)</span>
+<span class="w">    </span><span class="nt">cap_add</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_ADMIN</span>
+<span class="w">    </span><span class="nt">sysctls</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv4.conf.all.src_valid_mark=1</span><span class="w"> </span><span class="c1">#(12)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv6.conf.all.disable_ipv6=1</span><span class="w"> </span><span class="c1">#(3)</span>
+<span class="w">    </span><span class="nt">devices</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/net/tun:/dev/net/tun</span><span class="w"> </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">cli</label><label for="__tabbed_5_2">compose</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--hostname<span class="w"> </span>container-name.internal<span class="w"> </span><span class="se">\ </span><span class="c1">#(18)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_ENABLED</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(5)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_CONF</span><span class="o">=</span><span class="s2">&quot;wg0&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1"># READ THIS(8)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PROVIDER</span><span class="o">=</span><span class="s2">&quot;pia&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(4)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_NETWORK</span><span class="o">=</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(1)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_LAN_LEAK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_EXPOSE_PORTS_ON_LAN</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(2)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(6)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_AUTO_PORT_FORWARD_TO_PORTS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(15)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_KEEP_LOCAL_DNS</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(10)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_FIREWALL_TYPE</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(17)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_HEALTHCHECK_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PIA_USER</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(11)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PIA_PASS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PIA_PREFERRED_REGION</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(7)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PIA_DIP_TOKEN</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(13)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">VPN_PIA_PORT_FORWARD_PERSIST</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(14)</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">PRIVOXY_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">UNBOUND_ENABLED</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(16)</span>
+<span class="w">    </span>--cap-add<span class="o">=</span>NET_ADMIN<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(12)</span>
+<span class="w">    </span>--sysctl<span class="o">=</span><span class="s2">&quot;net.ipv6.conf.all.disable_ipv6=1&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#(3)</span>
+<span class="w">    </span>--device<span class="w"> </span>/dev/net/tun:/dev/net/tun<span class="w"> </span><span class="se">\ </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span>...
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">container-name.internal</span><span class="w"> </span><span class="c1">#(18)</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_ENABLED=true</span><span class="w"> </span><span class="c1">#(5)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_CONF=wg0</span><span class="w"> </span><span class="c1"># READ THIS(8)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PROVIDER=pia</span><span class="w"> </span><span class="c1">#(4)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_NETWORK=192.168.1.0/24</span><span class="w"> </span><span class="c1">#(1)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_LAN_LEAK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_EXPOSE_PORTS_ON_LAN</span><span class="w"> </span><span class="c1">#(2)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD=true</span><span class="w"> </span><span class="c1">#(6)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_AUTO_PORT_FORWARD_TO_PORTS=</span><span class="w"> </span><span class="c1">#(15)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_KEEP_LOCAL_DNS=false</span><span class="w"> </span><span class="c1">#(10)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_FIREWALL_TYPE=auto</span><span class="w"> </span><span class="c1">#(17)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_HEALTHCHECK_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PIA_USER</span><span class="w"> </span><span class="c1">#(11)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PIA_PASS</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PIA_PREFERRED_REGION</span><span class="w"> </span><span class="c1">#(7)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PIA_DIP_TOKEN=no</span><span class="w"> </span><span class="c1">#(13)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPN_PIA_PORT_FORWARD_PERSIST=false</span><span class="w"> </span><span class="c1">#(14)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PRIVOXY_ENABLED=false</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNBOUND_ENABLED=false</span><span class="w"> </span><span class="c1">#(16)</span>
+<span class="w">    </span><span class="nt">cap_add</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_ADMIN</span>
+<span class="w">    </span><span class="nt">sysctls</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv4.conf.all.src_valid_mark=1</span><span class="w"> </span><span class="c1">#(12)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net.ipv6.conf.all.disable_ipv6=1</span><span class="w"> </span><span class="c1">#(3)</span>
+<span class="w">    </span><span class="nt">devices</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/net/tun:/dev/net/tun</span><span class="w"> </span><span class="c1"># OPTIONAL, READ THIS(9)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>The environment variable <code>VPN_LAN_NETWORK</code> can be set to for example <code>192.168.1.0/24</code>, <code>192.168.1.0/24,192.168.44.0/24</code> or <code>192.168.1.33</code>, so you can get access to the webui or other additional ports (see below). If for example you were to pick <code>192.168.0.0/24</code>, every device with an ip in the range <code>192.168.0.0 - 192.168.0.255</code> on your LAN is allowed access to the webui.</p>
+</li>
+<li>
+<p>If you need to expose ports on your LAN you can use <code>VPN_EXPOSE_PORTS_ON_LAN</code>. For example <code>VPN_EXPOSE_PORTS_ON_LAN=7878/tcp,9117/tcp</code>, will block those ports on the vpn interface, so that there's no risk that they might be exposed to the world and allow access to them from your LAN. Some images also have a <code>WEBUI_PORTS</code> environment variable that does basically the same for the vpn part. For those apps that support it, it'll also change the port on which the app runs.</p>
+</li>
+<li>
+<p>With <code>net.ipv6.conf.all.disable_ipv6=1</code> all ipv6 support is disabled. Leave ipv6 disabled and remove all references to it in your <code>wg0.conf</code> file to keep things simple. If you need any sort of ipv6 support, enable it with <code>net.ipv6.conf.all.disable_ipv6=0</code>. A WireGuard ipv6 endpoint is currently not supported.</p>
+</li>
+<li>
+<p>Possible values are <code>generic</code>, <code>proton</code> and <code>pia</code>.</p>
+</li>
+<li>
+<p>There needs to be a file <code>wg0.conf</code> located in <code>/config/wireguard</code> and you need to set the variable <code>VPN_ENABLED</code> to <code>true</code> for the VPN to start. If you'd like to execute some of your own bash commands you can place two scripts alongside your <code>wg0.conf</code>, called <code>wg0-pre.sh</code> and <code>wg0-post.sh</code>. These will execute right before the check for the existence of a <code>wg0.conf</code> file and almost at the end, right before the internet connectivity test.</p>
+</li>
+<li>
+<p>Auto retrieve a forwarded port and configure the supported app if set to <code>true</code> or if you can manually request/set a forwarded port in the VPN provider's web interface, fill in the port number (just the number). Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>By default a random server is used, but if you prefer a certain region you can fill in the region id. A list of available regions can be found in <code>/config/wireguard</code> after the first start. If you're seeing an error message <code>shuf: getrandom: Function not implemented</code>, you can't let it pick one randomly and are forced to fill in a region id.</p>
+</li>
+<li>
+<p>With <code>VPN_CONF</code> you can set the name used for your WireGuard config. This is an example of how your <code>wg0.conf</code> file should look like. If there's a lot of extra stuff, remove it unless you know what it's there for. The WireGuard config is automatically modified to use <code>AllowedIPs = 0.0.0.0/1,128.0.0.0/1</code> for compatibility with Synology/QNAP/Asustor/WSL2 systems if you append <code>-fix</code>, so <code>VPN_CONF=wg0-fix</code>. WSL2 users can also compile their own kernel if they don't wanna use this workaround.
+<div class="highlight"><pre><span></span><code>[Interface]
+PrivateKey = supersecretprivatekey
+Address = xx.xx.xxx.xxx/32 # Yes, /32
+DNS = x.x.x.x
+
+[Peer]
+PublicKey = publickey
+AllowedIPs = 0.0.0.0/0
+Endpoint = xxx.x.xxx.x:51820
+</code></pre></div></p>
+</li>
+<li>
+<p>If the WireGuard kernel module is missing (most likely on Synology/QNAP/Asustor), you can run WireGuard in userspace thanks to <code>wireguard-go</code>. For that you'll need to add the device <code>/dev/net/tun</code>. It's most likely that the device <code>/dev/net/tun</code> does not exist however, have a read <a href="https://memoryleak.dev/post/fix-tun-tap-not-available-on-a-synology-nas/" rel="noopener" target="_blank">here</a> for instructions on checking and adding the device.</p>
+</li>
+<li>
+<p>Setting this to <code>true</code> will re-add the default nameserver if it's been overwritten by the <code>DNS = ...</code> entry in <code>wgO.conf</code>. This should keep container name resolution working. If container name resolution still doesn't work, add <code>--dns 1.1.1.1</code>, somehow this can fix it (confirmed on MacOS).</p>
+</li>
+<li>
+<p>When using <code>VPN_PROVIDER=pia</code>, fill in your username and password. A <code>wg0.conf</code> will be automatically downloaded.</p>
+</li>
+<li>
+<p>Required in most cases, on some systems that don't have <code>rp_filter</code> set to strict, it's optional.</p>
+</li>
+<li>
+<p>Fill in your DIP token here, if you've bought the dedicated ip option.</p>
+</li>
+<li>
+<p>If you'd like to keep using the same forwarded port until it expires, set this to <code>true</code>.</p>
+</li>
+<li>
+<p>Adds a redirect for the forwarded port from your vpn provider to the internal port on which the app runs, ports in this list are also not blocked on the wireguard interface, so this var is also useful if you want to expose a port on both your LAN and VPN. Values like <code>32400/tcp</code> will use the port from <code>VPN_AUTO_PORT_FORWARD</code> to create the redirect or if set to <code>true</code> the forwarded port from pia/proton. Use <code>3000@3001/tcp,3002@3003/tcp</code> syntax for extra static redirects. The only known usecase as of right now is Plex and exposing it on the VPN with a non configurable forwarded port, because it's not possible to run Plex on anything else but 32400. Useful website to check for open ports is <a href="https://www.yougetsignal.com/tools/open-ports" rel="noopener" target="_blank">YouGetSignal</a> and <a href="https://ipleak.net" rel="noopener" target="_blank">ipleak.net</a> to leak test with <code>.torrent</code> file.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+<li>
+<p>Possible values are <code>auto</code>, <code>legacy</code> or <code>nftables</code>. The default is <code>auto</code>, this will try to use the most modern method available. If this doesn't work, you can try forcing it to <code>legacy</code> or <code>nftables</code>.</p>
+</li>
+<li>
+<p>When enabling the Unbound DNS server your requests will use DNS over TLS to Cloudflare. Except for requests made to <code>.internal</code> and <code>.vpn</code> TLDs, those are done to the local docker DNS server on 127.0.0.11. So if you want to use container hostnames to connect to other containers within a bridge network, you'll have to use <code>--hostname</code> and use <code>container-name.internal</code> or <code>container-name.vpn</code>. Currently <code>.vpn</code> is a non existing TLD, but that can change in the future. The TLD <code>.internal</code> should become the standard for internal networks, so it's the safest choice. Unbound can be used regardless of <code>VPN_ENABLED</code> being <code>true</code> or <code>false</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../rflood/" class="md-footer__link md-footer__link--prev" aria-label="Previous: hotio/rflood">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                hotio/rflood
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../sonarr/" class="md-footer__link md-footer__link--next" aria-label="Next: hotio/sonarr">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                hotio/sonarr
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 hotio<br>Logos based on work by <a href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a href="https://www.flaticon.com">flaticon.com</a> and <a href="https://freeicons.io/profile/6200">Soni Sokell</a> on <a href="https://freeicons.io">freeicons.io</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://hotio.dev/donate" target="_blank" rel="noopener" title="Donate" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m47.6 300.4 180.7 168.7c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9l180.7-168.7c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141-45.6-7.6-92 7.3-124.6 39.9l-12 12-12-12c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://hotio.dev/discord" target="_blank" rel="noopener" title="Discord" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://hotio.dev/dockerhub" target="_blank" rel="noopener" title="Docker" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://hotio.dev/github" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.caa56a14.min.js"></script>
+      
+    
+  </body>
+</html>
